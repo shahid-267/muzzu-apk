@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muzzu APK - Download Safe & Fast Android Apps</title>
+  
+  <!-- Font Awesome Icons & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --card-bg: #161b22;
+      --card-hover: #21262d;
+      --accent: #2ea043;
+      --accent-hover: #3fb950;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --border-color: #30363d;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar Header */
+    header {
+      background: rgba(22, 27, 34, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .brand-logo i {
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    .search-bar {
+      position: relative;
+      width: 40%;
+      max-width: 450px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border-radius: 20px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-bar i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    /* Hero Banner */
+    .hero {
+      max-width: 1200px;
+      margin: 2rem auto 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-text h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(46, 160, 67, 0.15);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    /* Main Container */
+    .main-layout {
+      max-width: 1200px;
+      margin: 1.5rem auto 3rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      flex: 1;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title i {
+      color: var(--accent);
+    }
+
+    /* Apps Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .app-card:hover {
+      background: var(--card-hover);
+      transform: translateY(-4px);
+      border-color: rgba(46, 160, 67, 0.4);
+    }
+
+    .app-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      background: #21262d;
+    }
+
+    .app-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--text-main);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .app-info {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .btn-download {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 0;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-download:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Sidebar Content */
+    .sidebar-widget {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sidebar-item img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+    }
+
+    .sidebar-item-details h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .sidebar-item-details p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 1.5rem;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Mobile Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      .search-bar {
+        width: 60%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .search-bar {
+        width: 100%;
+      }
+      .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .hero-card {
+        text-align: center;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <i class="fa-solid fa-cloud-arrow-down"></i>
+        <span>Muzzu APK</span>
+      </a>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" onkeyup="filterApps()" placeholder="Search apps, games, tools...">
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i class="fa-solid fa-shield-halved"></i> 100% Virus-Free Verified APKs
+        </div>
+        <h1>Welcome to Muzzu APK</h1>
+        <p>Your trusted hub for downloading original, safe, and fast Android application packages and games.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <div class="main-layout">
+    
+    <!-- Primary Downloads Section -->
+    <main>
+      <h2 class="section-title">
+        <i class="fa-solid fa-fire"></i> Trending Downloads
+      </h2>
+      
+      <div class="apps-grid" id="appsGrid">
+        
+        <!-- App 1 -->
+        <div class="app-card">
+          <img src="https://via.placeholder.com/70/2ea043/ffffff?text=Photo" alt="Photo Editor" class="app-icon">
+          <div class="app-title">Muzzu Photo Studio Pro</div>
+          <div class="app-info">v2.1 • 45 MB</div>
+          <button class="btn-download" onclick="startDownload('Muzzu Photo Studio Pro')">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        </div>
+
+        <!-- App 2 -->
+        <div class="app-card">
+          <img src="https://via.placeholder.com/70/3b82f6/ffffff?text=Speed" alt="VPN Booster" class="app-icon">
+          <div class="app-title">Speed Optimizer Tool</div>
+          <div class="app-info">v4.0 • 18 MB</div>
+          <button class="btn-download" onclick="startDownload('Speed Optimizer Tool')">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        </div>
+
+        <!-- App 3 -->
+        <div class="app-card">
+          <img src="https://via.placeholder.com/70/f59e0b/ffffff?text=Game" alt="Game" class="app-icon">
+          <div class="app-title">Pixel Quest Adventure</div>
+          <div class="app-info">v1.2 • 98 MB</div>
+          <button class="btn-download" onclick="startDownload('Pixel Quest Adventure')">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        </div>
+
+        <!-- App 4 -->
+        <div class="app-card">
+          <img src="https://via.placeholder.com/70/ec4899/ffffff?text=Audio" alt="Music" class="app-icon">
+          <div class="app-title">HD Wave Music Player</div>
+          <div class="app-info">v3.5 • 22 MB</div>
+          <button class="btn-download" onclick="startDownload('HD Wave Music Player')">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Sidebar Section -->
+    <aside>
+      <div class="sidebar-widget">
+        <h2 class="section-title" style="font-size:1.1rem;">
+          <i class="fa-solid fa-chart-line"></i> Most Popular
+        </h2>
+        <div class="sidebar-list">
+          
+          <div class="sidebar-item">
+            <img src="https://via.placeholder.com/48/2ea043/ffffff?text=1" alt="App">
+            <div class="sidebar-item-details">
+              <h4>Muzzu Launcher</h4>
+              <p>Tools • 12 MB</p>
+            </div>
+          </div>
+
+          <div class="sidebar-item">
+            <img src="https://via.placeholder.com/48/3b82f6/ffffff?text=2" alt="App">
+            <div class="sidebar-item-details">
+              <h4>File Manager Max</h4>
+              <p>Productivity • 15 MB</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 Muzzu APK. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">DMCA Policy</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Basic JavaScript Functionality -->
+  <script>
+    function filterApps() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.app-card');
+
+      cards.forEach(card => {
+        const title = card.querySelector('.app-title').innerText.toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function startDownload(appName) {
+      alert('Preparing download for: ' + appName + '\nYour download link will begin shorty.');
+      // Direct your download link here:
+      // window.location.href = "https://your-cloud-storage.com/files/app.apk";
+    }
+  </script>
+</body>
+</html>
